@@ -1,0 +1,113 @@
+---
+title: "Using Linguistic Markers"
+author: "Mark Newman"
+date: "`r Sys.Date()`"
+editor_options: 
+  chunk_output_type: console
+output:
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Using Linguistic Markers}
+  \usepackage[utf8]{inputenc}
+  %\VignetteEngine{knitr::rmarkdown}
+---
+
+# Background
+
+Linguistic Markers are tokens that are indicative of some category.
+When they appear in text, that text is assumed to inherit some of the categorie's meaning.
+
+Take the word "bad" as an example.
+This word is may be associated with the category _negative_ tone.
+When "bad" appears in the sentence
+
+> It was bad.
+
+The sentence can be assumed to, at least partially, belong to the category _negative_ tone.
+
+Additional features of linguistic markers include:
+
+* Multi-category markers
+* Marker groups
+* Multiple calculation metrics
+* Context defined.
+
+# Basic Walkthrough
+
+Assemble a corpus.
+
+```{r}
+corpus <-
+  data.frame(
+    id = c(1,2,3),
+    text = c(
+      'It was a bad day, like really bad.',
+      'I am glad it is a sunny day.',
+      'I am glad it is not a bad day.'))
+```
+
+Select your marker file.
+For help with your own marker file, see the vignette _Making Marker Files_.
+
+```{r}
+path <- system.file("extdata", "sample_markers.csv", package = "LinguisticMarkers")
+```
+
+Calculate the linguistic markers
+
+```{r}
+library(LinguisticMarkers)
+
+enriched_corpus <- 
+  calculate_markers(
+    corpus = corpus,
+    file = path,
+    id = 'id',
+    text = 'text',
+    show_progress = F)
+```
+
+Look at the measures
+
+```{r message = F, warning = F, results = 'hold'}
+library(dplyr)
+library(knitr)
+library(kableExtra)
+
+enriched_corpus %>%
+  select(id, WordCount, WordCountUnique, MarkerCount, MarkerCountUnique) %>%
+  arrange(id) %>%
+  kable(
+    caption = 'Basic Stats',
+    col.names = c(
+      'ID',
+      'Count',
+      'Unique',
+      'Count',
+      'Unique')) %>%
+  kable_styling() %>%
+  add_header_above(c(' ' = 1, 'Word' = 2, 'Marker' = 2))
+
+enriched_corpus %>%
+  select(id, negative, negativeUnique, positive, positiveUnique) %>%
+  arrange(id) %>%
+  kable(
+    caption = 'Category Stats',
+    col.names = c(
+      'ID',
+      'Count',
+      'Unique',
+      'Count',
+      'Unique')) %>%
+  kable_styling() %>%
+  add_header_above(c(' ' = 1, 'Negative' = 2, 'Positive' = 2))
+```
+
+Convert the markers into measures.
+
+There are three different ways to convert markers into measures useful in an analysis:
+
+* Ratio
+* _Unique_ category count / Total word count.
+* Category count / Total word count.
+

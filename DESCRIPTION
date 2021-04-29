@@ -1,0 +1,36 @@
+Package: LinguisticMarkers
+Version: 0.1.0
+Date: 2021-04-29
+Title: Linguistic Markers 
+Description: Tools to calculate linguistic markers.
+Authors@R:
+    person(
+        given = "Mark",
+        family = "Newman",
+        role = c("aut", "cre"),
+        email = "mark@trinetteandmark.com",
+        comment = c(ORCID = "0000-0001-6155-438X"))
+Maintainer: Mark Newman <mark@trinetteandmark.com>
+Depends:
+    R (>= 4.0.0)
+Imports:
+    dplyr,
+    readr,
+    stringr,
+    tidyr,
+	tidytext
+Suggests:
+    gutenbergr,
+    kableExtra,
+    knitr,
+    rmarkdown,
+    testthat
+License: MIT + file LICENSE
+URL: https://github.com/markanewman/LinguisticMarkers
+BugReports: https://github.com/markanewman/LinguisticMarkers/issues
+RoxygenNote: 7.1.1
+Roxygen: list(markdown = TRUE)
+VignetteBuilder:
+    knitr
+Encoding: UTF-8
+LazyData: true

@@ -1,0 +1,8 @@
+# IDE/Tools
+.Rhistory
+.RData
+.bak
+.vscode
+doc
+Meta
+!inst/doc
