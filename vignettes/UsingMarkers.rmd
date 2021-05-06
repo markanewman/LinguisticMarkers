@@ -1,7 +1,7 @@
 ---
-title: "Using Linguistic Markers"
-author: "Mark Newman"
-date: "`r Sys.Date()`"
+title: 'Using Linguistic Markers'
+author: 'Mark Newman'
+date: '2021-04-29'
 editor_options: 
   chunk_output_type: console
 output:

@@ -1,23 +1,52 @@
+---
+title: 'Rebuild'
+author: 'Mark Newman'
+date: '2021-05-06'
+editor_options: 
+  chunk_output_type: console
+output:
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Rebuild}
+  \usepackage[utf8]{inputenc}
+  %\VignetteEngine{knitr::rmarkdown}
+---
+
 The following guides you through the full (re)build process.
 
-```{r}
-# load packages
+# Steps
+
+1. Clone the repo from [here](https://github.com/markanewman/LinguisticMarkers).
+
+2. Load packages
+
+```{r eval = F}
 pkgs <- installed.packages()
 if (!('devtools' %in% pkgs)) { install.packages('devtools') }
 if (!('roxygen2' %in% pkgs)) { install.packages('roxygen2') }
 if (!('pkgdown' %in% pkgs)) { install.packages('pkgdown') }
 if ('LinguisticMarkers' %in% pkgs) { remove.packages('LinguisticMarkers') }
+```
 
-# set working directory and clean files that will be regenerated
+3. Set working directory and clean files that will be regenerated.
+   This folder will vary based on where the repo was cloned.
+
+```{r eval = F}
 setwd("D:/repos/markanewman/LinguisticMarkers")
 unlink(c('./man', './inst/doc', './NAMESPACE'), recursive = T)
+```
 
-# pre-build checks
+4. Run the pre-build checks
+
+```{r eval = F}
 devtools::check(manual = T, vignettes = T)
 detach('package:LinguisticMarkers', unload = T)
 unlink(c('./man', './NAMESPACE'), recursive = T)
+```
 
-# make docs
+5. Make docs
+
+```{r eval = F}
 devtools::document()
 devtools::build_vignettes()
 dir.create('./inst/doc', showWarnings = F, recursive = T)
@@ -25,12 +54,17 @@ files <- list.files('./doc', pattern = 'html')
 lapply(files, function(x) { file.rename(paste0('./doc/', x), paste0('./inst/doc/', x)) } )
 unlink(c('./doc', './Meta', './.Rbuildignore'), recursive = T)
 detach('package:LinguisticMarkers', unload = T)
+```
 
-# test the instalability
+6. Test the install-ability
+
+```{r eval = F}
 devtools::install_local(upgrade = 'never')
 remove.packages('LinguisticMarkers')
+```
 
-# recompile the test data and run the tests
-#testthat::source_dir('./data-raw')
-#devtools::test()
+7. Run the tests
+
+```{r eval = F}
+devtools::test()
 ```
