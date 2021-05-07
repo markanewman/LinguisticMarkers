@@ -2,6 +2,8 @@
 
 export(calculate_markers)
 importFrom(dplyr,group_by)
+importFrom(dplyr,left_join)
+importFrom(dplyr,mutate_all)
 importFrom(dplyr,select)
 importFrom(dplyr,summarise)
 importFrom(readr,read_csv)

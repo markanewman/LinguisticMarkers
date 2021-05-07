@@ -15,6 +15,7 @@ test_that('empty document', {
   func <- LinguisticMarkers:::match_markers
   t1 <- func(corpus, markers, F)
   
+  expect_equal(nrow(t1), 2)
   expect_true(all(t1$id == c(1,2)))
   expect_true(all(is.na(t1$Marker)))
   expect_true(all(t1$cat == c(0,0)))
@@ -35,6 +36,7 @@ test_that('basic match', {
   func <- LinguisticMarkers:::match_markers
   t1 <- func(corpus, markers, F)
   
+  expect_equal(nrow(t1), 1)
   expect_true(all(t1$id == c(1)))
   expect_true(all(t1$Marker == c('a')))
   expect_true(all(t1$cat == c(1)))
@@ -56,6 +58,7 @@ test_that('multicat match', {
   func <- LinguisticMarkers:::match_markers
   t1 <- func(corpus, markers, F)
   
+  expect_equal(nrow(t1), 1)
   expect_true(all(t1$id == c(1)))
   expect_true(all(t1$Marker == c('a')))
   expect_true(all(t1$cat1 == c(1)))

@@ -32,7 +32,7 @@ if ('LinguisticMarkers' %in% pkgs) { remove.packages('LinguisticMarkers') }
    This folder will vary based on where the repo was cloned.
 
 ```{r eval = F}
-setwd("D:/repos/markanewman/LinguisticMarkers")
+setwd('D:/repos/markanewman/LinguisticMarkers')
 unlink(c('./man', './inst/doc', './NAMESPACE'), recursive = T)
 ```
 

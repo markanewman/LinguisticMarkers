@@ -1,6 +1,8 @@
 #' @title calculate_markers
 #'
 #' @description Calculate the linguistic markers for a corpus
+#' 
+#' @importFrom dplyr left_join mutate_all
 #'
 #' @export
 #' 
@@ -23,7 +25,13 @@ calculate_markers <-
     tc <- tidy_corpus(corpus, id, text)
     results <- match_markers(tc, mdf, show_progress)
     results <- group_markers(results)
+    t1 <- data.frame(id = corpus[,id])
+    results <- dplyr::left_join(t1, results, by = 'id')
+    results <- dplyr::mutate_all(results, ~replace(., is.na(.), 0))
     cn <- colnames(results)
     cn[1] <- id
-    colnames(results) = cn
+    colnames(results) <- cn
+    if(nrow(corpus) != nrow(results)) {
+        stop('QA: row counts out of sync mid processing')
+      }
     results }

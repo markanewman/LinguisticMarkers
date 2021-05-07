@@ -15,6 +15,16 @@ test_that('basic corpus', {
   func <- LinguisticMarkers:::tidy_corpus
   t2 <- func(t1, 'id', 'text')
   
+  expect_equal(nrow(t2), 3)
   expect_true(all(t2$id == c(1, 2, 2)))
   expect_true(all(t2$word == c('a', 'a', 'b')))
+})
+
+test_that('emote corpus', {
+  t1 <- data.frame(id = c(1), text = c('\U0001f44b'))
+  
+  func <- LinguisticMarkers:::tidy_corpus
+  t2 <- func(t1, 'id', 'text')
+  
+  expect_equal(nrow(t2), 0)
 })

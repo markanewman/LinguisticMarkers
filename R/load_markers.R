@@ -6,7 +6,7 @@ load_markers <-
     
     markers_raw <- readr::read_csv(file, col_types = 'iclc')
     xcn <- c('ID', 'Marker', 'Fixed', 'Category')
-    acn = colnames(markers_raw)
+    acn <- colnames(markers_raw)
     if(!all(xcn == acn)) { stop('QA: marker file has bad columns') }
     
     markers_raw$xx = 1L
