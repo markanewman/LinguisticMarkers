@@ -5,4 +5,4 @@ tidy_corpus <-
     colnames(corpus) <- c('id', 'text')
     t1 <- tidytext::unnest_tokens(corpus, word, text)
     rownames(t1) <- NULL
-    t1 }
+    t1[!is.na(t1$word),] }

@@ -15,7 +15,7 @@ match_markers <-
       } else {
         indx <- corpus$word == markers$Marker[i]
       }
-      
+      indx <- ifelse(is.na(indx), F, indx)
       cnt_proc <- nrow(corpus)
       matches <- corpus[indx,]
       corpus <- corpus[!indx,]
